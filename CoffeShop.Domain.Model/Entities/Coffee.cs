@@ -12,7 +12,7 @@ public sealed class Coffee : BaseEntity
     [Display(Name = "Nome do Produtor")]
     public string ProductorName { get; set; }
     [Required]
-    [Display(Name = "Altitude de Plantio")]
+    [Display(Name = "Altitude de Plantio (m)")]
     public int Altitude { get; set; }
     [Required]
     [Display(Name = "Localização de Plantio")]
