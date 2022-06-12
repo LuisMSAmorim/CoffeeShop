@@ -1,9 +1,9 @@
 ﻿using CoffeeShop.Domain.Model.DTOs;
 using CoffeeShop.Domain.Model.Entities;
 
-namespace CoffeeShop.Domain.Model.Interfaces;
+namespace CoffeeShop.Domain.Model.Interfaces.Repositories;
 
-public interface ICoffesRepository
+public interface ICoffeRepository
 {
     Task AddAsync(Coffee coffee);
     Task<Coffee> GetByIdAsync(int id);

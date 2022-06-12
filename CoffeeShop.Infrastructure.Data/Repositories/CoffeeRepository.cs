@@ -1,16 +1,16 @@
 ﻿using CoffeeShop.Domain.Model.DTOs;
 using CoffeeShop.Domain.Model.Entities;
-using CoffeeShop.Domain.Model.Interfaces;
+using CoffeeShop.Domain.Model.Interfaces.Repositories;
 using CoffeeShop.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoffeeShop.Infrastructure.Data.Repositories;
 
-public sealed class CoffeesRepository : ICoffesRepository
+public sealed class CoffeeRepository : ICoffeRepository
 {
     private readonly CoffeeShopDbContext _context;
 
-    public CoffeesRepository
+    public CoffeeRepository
     (
         CoffeeShopDbContext context
     )

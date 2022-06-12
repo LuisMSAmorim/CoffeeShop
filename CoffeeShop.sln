@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeShop.Web", "CoffeeSho
 		{EF48B3F9-9A61-424F-8010-74215DA29167} = {EF48B3F9-9A61-424F-8010-74215DA29167}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeShop.Domain.Services", "CoffeeShop.Domain.Services\CoffeeShop.Domain.Services.csproj", "{01D8B04B-B00C-4234-9DDD-456B7C5BC3CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{5B2E66EE-8712-4B9A-B58B-48BD78B27C96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B2E66EE-8712-4B9A-B58B-48BD78B27C96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B2E66EE-8712-4B9A-B58B-48BD78B27C96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01D8B04B-B00C-4234-9DDD-456B7C5BC3CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01D8B04B-B00C-4234-9DDD-456B7C5BC3CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01D8B04B-B00C-4234-9DDD-456B7C5BC3CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01D8B04B-B00C-4234-9DDD-456B7C5BC3CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
