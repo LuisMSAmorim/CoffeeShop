@@ -19,7 +19,9 @@ public sealed class CoffeeRepository : ICoffeRepository
 
     public async Task AddAsync(Coffee coffee)
     {
-        await _context.AddAsync(coffee);
+        _context.Add(coffee);
+
+        await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Coffee coffee)
