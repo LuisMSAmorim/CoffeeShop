@@ -11,9 +11,9 @@ using System.Data.SqlClient;
 
 namespace CoffeeShop.Functions;
 
-public static class LastVisualizationDateTimeUpdate
+public static class LastVisualizationUpdate
 {
-    [FunctionName("LastVisualizationDateTime")]
+    [FunctionName("LastVisualizationUpdate")]
     public static async Task<IActionResult> Run(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest request,
         ILogger log)
@@ -25,7 +25,7 @@ public static class LastVisualizationDateTimeUpdate
 
         int coffeId = data?.Id;
 
-        var dbConnectionString = Environment.GetEnvironmentVariable("SqlConnectionString");
+        var dbConnectionString = Environment.GetEnvironmentVariable("DatabaseConnection");
 
         SqlConnection connection = new(dbConnectionString);
 
