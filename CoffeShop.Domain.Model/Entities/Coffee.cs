@@ -19,4 +19,6 @@ public sealed class Coffee : BaseEntity
     public string Location { get; set; }
     [Display(Name = "Foto")]
     public string ImageUrl { get; set; }
+    [Display(Name = "Última Visualização")]
+    public DateTime LastVisualization { get; set; }
 }

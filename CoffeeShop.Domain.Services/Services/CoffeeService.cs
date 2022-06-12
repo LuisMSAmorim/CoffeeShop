@@ -10,15 +10,19 @@ public sealed class CoffeeService : ICoffeeService
 {
     private readonly ICoffeRepository _repository;
     private readonly IBlobService _blobService;
+    private readonly IFunctionService _functionService;
 
     public CoffeeService
     (
         ICoffeRepository repository,
-        IBlobService blobService
+        IBlobService blobService,
+        IFunctionService functionService
+
     )
     {
         _repository = repository;
         _blobService = blobService;
+        _functionService = functionService;
     }
 
     public async Task CreateAsync(Coffee coffee, Stream stream)
@@ -46,7 +50,12 @@ public sealed class CoffeeService : ICoffeeService
 
     public async Task<Coffee> GetByIdAsync(int id)
     {
-        return await _repository.GetByIdAsync(id);
+        var coffe =  await _repository.GetByIdAsync(id);
+
+        if(coffe != null)
+            await _functionService.InvokeAsync(coffe);
+
+        return coffe;
     }
 
     public async Task UpdateAsync(int id, CoffeeDTO coffeeDTO, Stream? stream)
