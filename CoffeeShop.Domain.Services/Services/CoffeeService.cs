@@ -1,4 +1,5 @@
-﻿using CoffeeShop.Domain.Model.Entities;
+﻿using CoffeeShop.Domain.Model.DTOs;
+using CoffeeShop.Domain.Model.Entities;
 using CoffeeShop.Domain.Model.Interfaces.Repositories;
 using CoffeeShop.Domain.Model.Interfaces.Services.Domain;
 using CoffeeShop.Domain.Model.Interfaces.Services.Infrastructure;
@@ -33,12 +34,6 @@ public sealed class CoffeeService : ICoffeeService
     {
         var coffeImageUrl = coffee.ImageUrl;
 
-        if (coffeImageUrl == null)
-        {
-            await _repository.DeleteAsync(coffee);
-            return;
-        }
-
         await Task.WhenAll(
             _blobService.DeleteAsync(coffeImageUrl),
             _repository.DeleteAsync(coffee));
@@ -54,26 +49,22 @@ public sealed class CoffeeService : ICoffeeService
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task UpdateAsync(int id, Coffee coffee, Stream stream)
+    public async Task UpdateAsync(int id, CoffeeDTO coffeeDTO, Stream? stream)
     {
-        var actualCoffe = await _repository.GetByIdAsync(id);
+        var actualDbCoffee = await _repository.GetByIdAsync(id);
+        var actualImageUrl = actualDbCoffee.ImageUrl;
 
         if (stream != null)
         {
-            await DeleteActualCoffeImageIfAlreadyExists(actualCoffe);
-            coffee.ImageUrl = await _blobService.UploadAsync(stream);
+            await _blobService.DeleteAsync(actualImageUrl);
+
+            coffeeDTO.ImageUrl = await _blobService.UploadAsync(stream);
+
+            await _repository.UpdateAsync(id, coffeeDTO);
+            return;
         }
 
-        await _repository.UpdateAsync(id, coffee);
-    }
-
-    private async Task DeleteActualCoffeImageIfAlreadyExists(Coffee coffee)
-    {
-        var imageUrl = coffee.ImageUrl;
-
-        if (imageUrl != null)
-        {
-            await _blobService.DeleteAsync(imageUrl);
-        }
+        coffeeDTO.ImageUrl = actualImageUrl;
+        await _repository.UpdateAsync(id, coffeeDTO);
     }
 }

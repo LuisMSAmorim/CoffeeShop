@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using CoffeeShop.Domain.Model.Entities;
 using CoffeeShop.Domain.Model.Interfaces.Services.Domain;
+using CoffeeShop.Domain.Model.DTOs;
 
 namespace CoffeeShop.Web.Controllers;
 
@@ -45,12 +46,14 @@ public class CoffeesController : Controller
     // POST: Coffees/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("BrandName,ProductorName,Altitude,Location,ImageUrl,Id")] Coffee coffee)
+    public async Task<IActionResult> Create(Coffee coffee)
     {
         if (!ModelState.IsValid)
             return View(coffee);
 
-        await _coffeeService.CreateAsync(coffee);
+        var file = Request.Form.Files.SingleOrDefault();
+
+        await _coffeeService.CreateAsync(coffee, file?.OpenReadStream());
 
         return RedirectToAction(nameof(Index));
     }
@@ -69,7 +72,7 @@ public class CoffeesController : Controller
     // POST: Coffees/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("BrandName,ProductorName,Altitude,Location,ImageUrl,Id")] Coffee coffee)
+    public async Task<IActionResult> Edit(int id, Coffee coffee)
     {
         if (id != coffee.Id)
             return NotFound();
@@ -77,9 +80,27 @@ public class CoffeesController : Controller
         if (!ModelState.IsValid)
             return View(coffee);
 
+        CoffeeDTO coffeDTO = new()
+        {
+            Altitude = coffee.Altitude,
+            BrandName = coffee.BrandName,
+            Location = coffee.Location,
+            ProductorName = coffee.ProductorName
+        };
+
         try
         {
-            await _coffeeService.UpdateAsync(id, coffee);
+            var file = Request.Form.Files.SingleOrDefault();
+
+            if (file != null)
+            {
+                await _coffeeService.UpdateAsync(id, coffeDTO, file.OpenReadStream());
+            }
+            else
+            {
+                await _coffeeService.UpdateAsync(id, coffeDTO, null);
+            }
+
         }
         catch (DbUpdateConcurrencyException)
         {

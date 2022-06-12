@@ -17,5 +17,6 @@ public sealed class Coffee : BaseEntity
     [Required]
     [Display(Name = "Localização de Plantio")]
     public string Location { get; set; }
+    [Display(Name = "Foto")]
     public string ImageUrl { get; set; }
 }

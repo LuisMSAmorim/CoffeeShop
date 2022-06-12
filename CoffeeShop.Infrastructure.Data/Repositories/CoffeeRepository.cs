@@ -1,4 +1,5 @@
-﻿using CoffeeShop.Domain.Model.Entities;
+﻿using CoffeeShop.Domain.Model.DTOs;
+using CoffeeShop.Domain.Model.Entities;
 using CoffeeShop.Domain.Model.Interfaces.Repositories;
 using CoffeeShop.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -43,9 +44,13 @@ public sealed class CoffeeRepository : ICoffeRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task UpdateAsync(int id, Coffee coffee)
+    public async Task UpdateAsync(int id, CoffeeDTO coffee)
     {
-        _context.Update(coffee);
+        var actualCoffe = await _context.Coffee
+            .Where(x => x.Id == id)
+            .FirstOrDefaultAsync();
+
+        _context.Entry(actualCoffe).CurrentValues.SetValues(coffee);
 
         await _context.SaveChangesAsync();
     }

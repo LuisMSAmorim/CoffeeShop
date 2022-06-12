@@ -1,4 +1,5 @@
-﻿using CoffeeShop.Domain.Model.Entities;
+﻿using CoffeeShop.Domain.Model.DTOs;
+using CoffeeShop.Domain.Model.Entities;
 
 namespace CoffeeShop.Domain.Model.Interfaces.Services.Domain;
 
@@ -6,7 +7,7 @@ public interface ICoffeeService
 {
     Task<List<Coffee>> GetAllAsync();
     Task<Coffee> GetByIdAsync(int id);
-    Task CreateAsync(Coffee coffee);
-    Task UpdateAsync(int id, Coffee coffee);
+    Task CreateAsync(Coffee coffee, Stream stream);
+    Task UpdateAsync(int id, CoffeeDTO coffeeDTO, Stream stream);
     Task DeleteAsync(Coffee coffee);
 }

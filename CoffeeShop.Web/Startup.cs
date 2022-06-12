@@ -1,6 +1,4 @@
-﻿using CoffeeShop.Infrastructure.Data.Context;
-using CoffeeShop.Infrastructure.IoC;
-using Microsoft.EntityFrameworkCore;
+﻿using CoffeeShop.Infrastructure.IoC;
 
 namespace CoffeeShop.Web;
 
