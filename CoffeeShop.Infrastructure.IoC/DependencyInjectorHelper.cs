@@ -5,6 +5,7 @@ using CoffeeShop.Domain.Services.Services;
 using CoffeeShop.Infrastructure.Data.Context;
 using CoffeeShop.Infrastructure.Data.Repositories;
 using CoffeeShop.Infrastructure.Services.Blob;
+using CoffeeShop.Infrastructure.Services.Functions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,5 +47,8 @@ public sealed class DependencyInjectorHelper
 
         services.AddScoped<IBlobService, BlobService>(provider => 
             new BlobService(storageAccountConnectionString));
+
+        services.AddScoped<IFunctionService, FunctionService>(provider =>
+            new FunctionService(configuration.GetConnectionString("FunctionBaseAddress")));
     }
 }
