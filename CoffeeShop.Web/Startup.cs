@@ -1,4 +1,5 @@
 ﻿using CoffeeShop.Infrastructure.Data.Context;
+using CoffeeShop.Infrastructure.IoC;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoffeeShop.Web;
@@ -16,8 +17,6 @@ public sealed class Startup
     {
         services.AddControllersWithViews();
 
-        services.AddDbContext<CoffeeShopDbContext>(options =>
-        options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
-
+        DependencyInjectorHelper.Register(services, Configuration);
     }
 }

@@ -3,126 +3,125 @@ using Microsoft.EntityFrameworkCore;
 using CoffeeShop.Domain.Model.Entities;
 using CoffeeShop.Domain.Model.Interfaces.Services;
 
-namespace CoffeeShop.Web.Controllers
+namespace CoffeeShop.Web.Controllers;
+
+public class CoffeesController : Controller
 {
-    public class CoffeesController : Controller
+    private readonly ICoffeeService _coffeeService;
+
+    public CoffeesController
+    (
+        ICoffeeService coffeeService
+    )
     {
-        private readonly ICoffeeService _coffeeService;
+        _coffeeService = coffeeService;
+    }
 
-        public CoffeesController
-        (
-            ICoffeeService coffeeService
-        )
-        {
-            _coffeeService = coffeeService;
-        }
+    // GET: Coffees
+    public async Task<IActionResult> Index()
+    {
+        var coffees = await _coffeeService.GetAllAsync();
 
-        // GET: Coffees
-        public async Task<IActionResult> Index()
-        {
-            var coffees = await _coffeeService.GetAllAsync();
+        return View(coffees);
+    }
 
-            return View(coffees);
-        }
+    // GET: Coffees/Details/5
+    public async Task<IActionResult> Details(int id)
+    {
+        var coffee = await _coffeeService.GetByIdAsync(id);
 
-        // GET: Coffees/Details/5
-        public async Task<IActionResult> Details(int id)
-        {
-            var coffee = await _coffeeService.GetByIdAsync(id);
+        if (coffee == null)
+            return NotFound();
 
-            if (coffee == null)
-                return NotFound();
+        return View(coffee);
+    }
 
+    // GET: Coffees/Create
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // POST: Coffees/Create
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("BrandName,ProductorName,Altitude,Location,ImageUrl,Id")] Coffee coffee)
+    {
+        if (!ModelState.IsValid)
             return View(coffee);
-        }
 
-        // GET: Coffees/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        await _coffeeService.CreateAsync(coffee);
 
-        // POST: Coffees/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BrandName,ProductorName,Altitude,Location,ImageUrl,Id")] Coffee coffee)
-        {
-            if (!ModelState.IsValid)
-                return View(coffee);
+        return RedirectToAction(nameof(Index));
+    }
 
-            await _coffeeService.CreateAsync(coffee);
+    // GET: Coffees/Edit/5
+    public async Task<IActionResult> Edit(int id)
+    {
+        var coffee = await _coffeeService.GetByIdAsync(id);
 
-            return RedirectToAction(nameof(Index));
-        }
+        if (coffee == null)
+            return NotFound();
 
-        // GET: Coffees/Edit/5
-        public async Task<IActionResult> Edit(int id)
-        {
-            var coffee = await _coffeeService.GetByIdAsync(id);
+        return View(coffee);
+    }
 
-            if (coffee == null)
-                return NotFound();
+    // POST: Coffees/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("BrandName,ProductorName,Altitude,Location,ImageUrl,Id")] Coffee coffee)
+    {
+        if (id != coffee.Id)
+            return NotFound();
 
+        if (!ModelState.IsValid)
             return View(coffee);
-        }
 
-        // POST: Coffees/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BrandName,ProductorName,Altitude,Location,ImageUrl,Id")] Coffee coffee)
+        try
         {
-            if (id != coffee.Id)
+            await _coffeeService.UpdateAsync(id, coffee);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (! await CoffeeExists(coffee.Id))
                 return NotFound();
 
-            if (!ModelState.IsValid)
-                return View(coffee);
-
-            try
-            {
-                await _coffeeService.UpdateAsync(id, coffee);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (! await CoffeeExists(coffee.Id))
-                    return NotFound();
-
-                throw;
-            }
-
-            return RedirectToAction(nameof(Index));
+            throw;
         }
 
-        // GET: Coffees/Delete/5
-        public async Task<IActionResult> Delete(int id)
-        {
-            var coffee = await _coffeeService.GetByIdAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
 
-            if (coffee == null)
-                return NotFound();
+    // GET: Coffees/Delete/5
+    public async Task<IActionResult> Delete(int id)
+    {
+        var coffee = await _coffeeService.GetByIdAsync(id);
 
-            return View(coffee);
-        }
+        if (coffee == null)
+            return NotFound();
 
-        // POST: Coffees/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var coffee = await _coffeeService.GetByIdAsync(id);
+        return View(coffee);
+    }
 
-            if (coffee == null)
-                return NotFound();
+    // POST: Coffees/Delete/5
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var coffee = await _coffeeService.GetByIdAsync(id);
 
-            await _coffeeService.DeleteAsync(coffee);
+        if (coffee == null)
+            return NotFound();
 
-            return RedirectToAction(nameof(Index));
-        }
+        await _coffeeService.DeleteAsync(coffee);
 
-        private async Task<bool> CoffeeExists(int id)
-        {
-            if (await _coffeeService.GetByIdAsync(id) != null) return true;
+        return RedirectToAction(nameof(Index));
+    }
 
-            return false;
-        }
+    private async Task<bool> CoffeeExists(int id)
+    {
+        if (await _coffeeService.GetByIdAsync(id) != null) return true;
+
+        return false;
     }
 }
