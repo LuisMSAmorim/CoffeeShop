@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CoffeeShop.Domain.Services\CoffeeShop.Domain.Services.csproj" />
     <ProjectReference Include="..\CoffeeShop.Infrastructure.Data\CoffeeShop.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\CoffeeShop.Infrastructure.Services\CoffeeShop.Infrastructure.Services.csproj" />
   </ItemGroup>
 
 </Project>
