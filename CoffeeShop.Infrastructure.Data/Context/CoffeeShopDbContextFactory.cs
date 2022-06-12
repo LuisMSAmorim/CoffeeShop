@@ -9,7 +9,7 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<CoffeeShop
     public CoffeeShopDbContext CreateDbContext(string[] args)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile(@Directory.GetCurrentDirectory()
-            + "/../CoffeeShop.WEB/appsettings.json").Build();
+            + "/../CoffeeShop.Web/appsettings.json").Build();
 
         var builder = new DbContextOptionsBuilder<CoffeeShopDbContext>();
         var connectionString = configuration.GetConnectionString("DatabaseConnection");

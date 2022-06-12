@@ -10,6 +10,14 @@ public sealed class CoffeesRepository : ICoffesRepository
 {
     private readonly CoffeeShopDbContext _context;
 
+    public CoffeesRepository
+    (
+        CoffeeShopDbContext context
+    )
+    {
+        _context = context;
+    }
+
     public async Task AddAsync(Coffee coffee)
     {
         await _context.AddAsync(coffee);
