@@ -1,5 +1,5 @@
 ﻿using CoffeeShop.Domain.Model.Interfaces.Repositories;
-using CoffeeShop.Domain.Model.Interfaces.Services;
+using CoffeeShop.Domain.Model.Interfaces.Services.Domain;
 using CoffeeShop.Domain.Services.Services;
 using CoffeeShop.Infrastructure.Data.Context;
 using CoffeeShop.Infrastructure.Data.Repositories;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CoffeeShop.Domain.Model.Entities;
-using CoffeeShop.Domain.Model.Interfaces.Services;
+using CoffeeShop.Domain.Model.Interfaces.Services.Domain;
 
 namespace CoffeeShop.Web.Controllers;
 

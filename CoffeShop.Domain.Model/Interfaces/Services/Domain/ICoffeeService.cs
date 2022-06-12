@@ -1,6 +1,6 @@
 ﻿using CoffeeShop.Domain.Model.Entities;
 
-namespace CoffeeShop.Domain.Model.Interfaces.Services;
+namespace CoffeeShop.Domain.Model.Interfaces.Services.Domain;
 
 public interface ICoffeeService
 {
