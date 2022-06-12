@@ -5,9 +5,12 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeShop.Domain.Model", "CoffeShop.Domain.Model\CoffeeShop.Domain.Model.csproj", "{8901599B-962C-4A6E-8903-25229EB7E72B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeShop.Infrastructure.Data", "CoffeeShop.Infrastructure.Data\CoffeeShop.Infrastructure.Data.csproj", "{EF48B3F9-9A61-424F-8010-74215DA29167}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeShop.Infrastructure.Data", "CoffeeShop.Infrastructure.Data\CoffeeShop.Infrastructure.Data.csproj", "{EF48B3F9-9A61-424F-8010-74215DA29167}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeShop.Web", "CoffeeShop.Web\CoffeeShop.Web.csproj", "{5B2E66EE-8712-4B9A-B58B-48BD78B27C96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeShop.Web", "CoffeeShop.Web\CoffeeShop.Web.csproj", "{5B2E66EE-8712-4B9A-B58B-48BD78B27C96}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF48B3F9-9A61-424F-8010-74215DA29167} = {EF48B3F9-9A61-424F-8010-74215DA29167}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
