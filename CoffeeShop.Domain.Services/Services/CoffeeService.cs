@@ -1,5 +1,4 @@
-﻿using CoffeeShop.Domain.Model.DTOs;
-using CoffeeShop.Domain.Model.Entities;
+﻿using CoffeeShop.Domain.Model.Entities;
 using CoffeeShop.Domain.Model.Interfaces.Repositories;
 using CoffeeShop.Domain.Model.Interfaces.Services;
 
@@ -37,8 +36,8 @@ public sealed class CoffeeService : ICoffeeService
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task UpdateAsync(int id, CoffeeDTO coffeeDTO)
+    public async Task UpdateAsync(int id, Coffee coffee)
     {
-        await _repository.UpdateAsync(id, coffeeDTO);
+        await _repository.UpdateAsync(id, coffee);
     }
 }
