@@ -6,7 +6,7 @@ namespace CoffeeShop.Infrastructure.Services.Blob;
 public sealed class BlobService : IBlobService
 {
     private readonly BlobServiceClient _blobServiceClient;
-    private const string _container = "coffeescontainer";
+    private const string _container = "images";
 
     public BlobService
     (
