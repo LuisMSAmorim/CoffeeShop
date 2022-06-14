@@ -12,13 +12,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeShop.Web", "CoffeeSho
 		{EF48B3F9-9A61-424F-8010-74215DA29167} = {EF48B3F9-9A61-424F-8010-74215DA29167}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeShop.Domain.Services", "CoffeeShop.Domain.Services\CoffeeShop.Domain.Services.csproj", "{01D8B04B-B00C-4234-9DDD-456B7C5BC3CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeShop.Domain.Services", "CoffeeShop.Domain.Services\CoffeeShop.Domain.Services.csproj", "{01D8B04B-B00C-4234-9DDD-456B7C5BC3CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeShop.Infrastructure.IoC", "CoffeeShop.Infrastructure.IoC\CoffeeShop.Infrastructure.IoC.csproj", "{16E21CEB-F1A1-4B7A-ACFA-64F125C78923}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeShop.Infrastructure.IoC", "CoffeeShop.Infrastructure.IoC\CoffeeShop.Infrastructure.IoC.csproj", "{16E21CEB-F1A1-4B7A-ACFA-64F125C78923}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeShop.Infrastructure.Services", "CoffeeShop.Infrastructure.Services\CoffeeShop.Infrastructure.Services.csproj", "{70A0F9D3-D78D-4F96-9897-781115EE508C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeShop.Infrastructure.Services", "CoffeeShop.Infrastructure.Services\CoffeeShop.Infrastructure.Services.csproj", "{70A0F9D3-D78D-4F96-9897-781115EE508C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeShop.Functions", "CoffeeShop.Functions\CoffeeShop.Functions.csproj", "{D56E2F39-1C8E-46E5-B79E-8F8540CC5B0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeShop.Functions", "CoffeeShop.Functions\CoffeeShop.Functions.csproj", "{D56E2F39-1C8E-46E5-B79E-8F8540CC5B0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
