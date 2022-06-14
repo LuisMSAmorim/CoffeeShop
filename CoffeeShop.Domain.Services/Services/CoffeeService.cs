@@ -50,11 +50,11 @@ public sealed class CoffeeService : ICoffeeService
         return await _repository.GetAllAsync();
     }
 
-    public async Task<Coffee> GetByIdAsync(int id)
+    public async Task<Coffee> GetByIdAsync(int id, bool SendVisualizationMessage)
     {
         var coffe = await _repository.GetByIdAsync(id);
 
-        if (coffe != null)
+        if (coffe != null && SendVisualizationMessage)
             await SendVisualizationMessageToQueue(coffe);
 
         return coffe;

@@ -29,7 +29,7 @@ public class CoffeesController : Controller
     // GET: Coffees/Details/5
     public async Task<IActionResult> Details(int id)
     {
-        var coffee = await _coffeeService.GetByIdAsync(id);
+        var coffee = await _coffeeService.GetByIdAsync(id, SendVisualizationMessage: true);
 
         if (coffee == null)
             return NotFound();
@@ -61,7 +61,7 @@ public class CoffeesController : Controller
     // GET: Coffees/Edit/5
     public async Task<IActionResult> Edit(int id)
     {
-        var coffee = await _coffeeService.GetByIdAsync(id);
+        var coffee = await _coffeeService.GetByIdAsync(id, SendVisualizationMessage: false);
 
         if (coffee == null)
             return NotFound();
@@ -116,7 +116,7 @@ public class CoffeesController : Controller
     // GET: Coffees/Delete/5
     public async Task<IActionResult> Delete(int id)
     {
-        var coffee = await _coffeeService.GetByIdAsync(id);
+        var coffee = await _coffeeService.GetByIdAsync(id, SendVisualizationMessage: false);
 
         if (coffee == null)
             return NotFound();
@@ -129,7 +129,7 @@ public class CoffeesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var coffee = await _coffeeService.GetByIdAsync(id);
+        var coffee = await _coffeeService.GetByIdAsync(id, SendVisualizationMessage: false);
 
         if (coffee == null)
             return NotFound();
@@ -141,7 +141,7 @@ public class CoffeesController : Controller
 
     private async Task<bool> CoffeeExists(int id)
     {
-        if (await _coffeeService.GetByIdAsync(id) != null) return true;
+        if (await _coffeeService.GetByIdAsync(id, SendVisualizationMessage: false) != null) return true;
 
         return false;
     }
