@@ -3,6 +3,9 @@ using CoffeeShop.Domain.Model.Entities;
 using CoffeeShop.Domain.Model.Interfaces.Repositories;
 using CoffeeShop.Domain.Model.Interfaces.Services.Domain;
 using CoffeeShop.Domain.Model.Interfaces.Services.Infrastructure;
+using CoffeShop.Domain.Model.Interfaces.Services.Infrastructure;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace CoffeeShop.Domain.Services.Services;
 
@@ -10,19 +13,18 @@ public sealed class CoffeeService : ICoffeeService
 {
     private readonly ICoffeRepository _repository;
     private readonly IBlobService _blobService;
-    private readonly IFunctionService _functionService;
+    private readonly IQueueService _queueService;
 
     public CoffeeService
     (
         ICoffeRepository repository,
         IBlobService blobService,
-        IFunctionService functionService
-
+        IQueueService queueService
     )
     {
         _repository = repository;
         _blobService = blobService;
-        _functionService = functionService;
+        _queueService = queueService;
     }
 
     public async Task CreateAsync(Coffee coffee, Stream stream)
@@ -50,10 +52,10 @@ public sealed class CoffeeService : ICoffeeService
 
     public async Task<Coffee> GetByIdAsync(int id)
     {
-        var coffe =  await _repository.GetByIdAsync(id);
+        var coffe = await _repository.GetByIdAsync(id);
 
-        if(coffe != null)
-            await _functionService.InvokeAsync(coffe);
+        if (coffe != null)
+            await SendVisualizationMessageToQueue(coffe);
 
         return coffe;
     }
@@ -75,5 +77,21 @@ public sealed class CoffeeService : ICoffeeService
 
         coffeeDTO.ImageUrl = actualImageUrl;
         await _repository.UpdateAsync(id, coffeeDTO);
+    }
+
+    private async Task SendVisualizationMessageToQueue(Coffee coffee)
+    {
+        string formatedCoffe = FormatCoffeeToBase64(coffee);
+
+        await _queueService.SendAsync(formatedCoffe);
+    }
+
+    private static string FormatCoffeeToBase64(Coffee coffee)
+    {
+        var jsonCoffee = JsonConvert.SerializeObject(coffee);
+
+        var bytesJsonCoffee = UTF8Encoding.UTF8.GetBytes(jsonCoffee);
+
+        return Convert.ToBase64String(bytesJsonCoffee);
     }
 }
