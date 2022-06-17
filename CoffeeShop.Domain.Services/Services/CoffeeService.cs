@@ -60,7 +60,7 @@ public sealed class CoffeeService : ICoffeeService
         return coffe;
     }
 
-    public async Task UpdateAsync(int id, CoffeeDTO coffeeDTO, Stream? stream)
+    public async Task UpdateAsync(int id, CoffeeDTO coffeeDTO, Stream stream)
     {
         var actualDbCoffee = await _repository.GetByIdAsync(id);
         var actualImageUrl = actualDbCoffee.ImageUrl;

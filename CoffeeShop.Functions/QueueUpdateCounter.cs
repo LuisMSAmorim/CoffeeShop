@@ -6,9 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace CoffeeShop.Functions;
 
-public static class QueueUpdateLastTimeVisualization
+public static class QueueUpdateCounter
 {
-    [FunctionName("QueueUpdateLastTimeVisualization")]
+    [FunctionName("QueueUpdateCounter")]
     public static void Run([QueueTrigger("func-update-last-time-visualization", Connection = "AzureWebJobsStorage")]Coffee coffee, ILogger log)
     {
         log.LogInformation($"C# Queue trigger function processed");
@@ -19,7 +19,10 @@ public static class QueueUpdateLastTimeVisualization
 
         connection.Open();
 
-        var textSql = $@"UPDATE [dbo].[Coffee] SET [LastVisualization] = GETDATE() WHERE [Id] = {coffee.Id};";
+        var actualVisualizationsNumber = coffee.VisualizationsNumber;
+        var updatedVisualizationsNumber = actualVisualizationsNumber + 1;
+
+        var textSql = $@"UPDATE [dbo].[Coffee] SET [VisualizationsNumber] = {updatedVisualizationsNumber} WHERE [Id] = {coffee.Id};";
 
         SqlCommand cmd = new(textSql, connection);
 
